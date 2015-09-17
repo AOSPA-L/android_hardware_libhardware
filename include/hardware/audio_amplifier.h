@@ -62,6 +62,22 @@ typedef struct amplifier_device {
     int (*set_output_devices)(struct amplifier_device *device, uint32_t devices);
 
     /**
+     * Notify amplifier device of output device enable/disable
+     *
+     * This function should handle only output devices.
+     */
+    int (*enable_output_devices)(struct amplifier_device *device,
+            uint32_t devices, bool enable);
+
+    /**
+     * Notify amplifier device of input device enable/disable
+     *
+     * This function should handle only input devices.
+     */
+    int (*enable_input_devices)(struct amplifier_device *device,
+            uint32_t devices, bool enable);
+
+    /**
      * Notify amplifier device about current audio mode
      */
     int (*set_mode)(struct amplifier_device *device, audio_mode_t mode);
@@ -89,6 +105,12 @@ typedef struct amplifier_device {
      */
     int (*input_stream_standby)(struct amplifier_device *device,
             struct audio_stream_in *stream);
+
+    /**
+     * set/get output audio device parameters.
+     */
+    int (*set_parameters)(struct amplifier_device *device,
+        struct str_parms *parms);
 } amplifier_device_t;
 
 typedef struct amplifier_module {
